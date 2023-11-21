@@ -2,6 +2,8 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './mongodb/connect.js';
+import dalleRoutes from './routes/dalleRoutes.js';
+import postRoutes from './routes/postRoutes.js';
 
 dotenv.config(); //this will pull all the env var from .env file
 
@@ -12,6 +14,9 @@ const app = express();
 app.use(cors()); //server will include the necessary headers in its responses to allow cross-origin requests from the specified domains
 
 app.use(express.json({ limit : '50mb' })); // json obj limit
+
+app.use('/api/v1/post', postRoutes);
+app.use('/api/v1/dalle', dalleRoutes);
 
 app.get('/',async (req,res) => {
     res.send('Hello mf !')
